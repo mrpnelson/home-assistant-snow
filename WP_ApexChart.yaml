@@ -1,0 +1,78 @@
+type: custom:apexcharts-card
+header:
+  show: false
+  show_states: false
+graph_span: 14d
+span:
+  start: day
+update_delay: 500ms
+series:
+  - entity: sensor.winter_park_snow_report
+    name: Forecast
+    type: column
+    color: "#3498db"
+    float_precision: 0
+    show:
+      legend_value: false
+      in_header: false
+      datalabels: true
+    data_generator: |
+      return entity.attributes.forecast.map(entry => {
+        const date = new Date(entry.x + "T00:00:00");
+        const label = date.toLocaleDateString('en-US', { weekday: 'short' });
+        return {
+          x: label,
+          y: entry.y
+        };
+      });
+apex_config:
+  chart:
+    type: bar
+    stacked: false
+    animations:
+      enabled: true
+    toolbar:
+      show: false
+  tooltip:
+    enabled: false
+  plotOptions:
+    bar:
+      borderRadius: 3
+      columnWidth: 70%
+      dataLabels:
+        position: top
+  dataLabels:
+    enabled: true
+    offsetY: -20
+    style:
+      fontSize: 12px
+      fontWeight: 600
+      colors:
+        - var(--primary-text-color)
+  xaxis:
+    type: category
+    labels:
+      show: true
+      rotate: -45
+      rotateAlways: true
+      style:
+        fontSize: 9px
+        fontWeight: 600
+  yaxis:
+    title:
+      text: Snowfall (Inches)
+    min: 0
+    forceNiceScale: true
+    decimalsInFloat: 0
+  fill:
+    type: gradient
+    gradient:
+      type: vertical
+      shadeIntensity: 0.1
+      opacityFrom: 0.9
+      opacityTo: 0.7
+      stops:
+        - 0
+        - 100
+  legend:
+    show: false
