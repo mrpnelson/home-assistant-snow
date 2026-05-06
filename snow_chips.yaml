@@ -1,0 +1,70 @@
+type: custom:mushroom-chips-card
+alignment: center
+chips:
+  - type: template
+    entity: sensor.winter_park_snow_report
+    content: "24h: {{ state_attr('sensor.winter_park_snow_report', 'last_24h') | int }}\""
+    icon: mdi:history
+    icon_color: orange
+    card_mod:
+      style: |
+        ha-card {
+          --chip-text-color: #ED9121;
+          --chip-font-weight: 800;
+        }
+  - type: template
+    entity: sensor.winter_park_snow_report
+    content: >-
+      Today: {{ state_attr('sensor.winter_park_snow_report', 'f_today') | int
+      }}"
+    icon: |
+      {% if state_attr('sensor.winter_park_snow_report', 'f_today') | int > 0 %}
+        mdi:snowflake
+      {% else %}
+        mdi:snowflake-off
+      {% endif %}
+    icon_color: blue
+    card_mod:
+      style: |
+        ha-card {
+          --chip-text-color: #3498db;
+          --chip-font-weight: 800;
+        }
+  - type: template
+    entity: sensor.winter_park_snow_report
+    content: >-
+      1-Day: {{ state_attr('sensor.winter_park_snow_report', 'f_tomorrow') | int
+      }}"
+    icon: >
+      {% if state_attr('sensor.winter_park_snow_report', 'f_tomorrow') | int > 0
+      %}
+        mdi:weather-snowy
+      {% else %}
+        mdi:snowflake-off
+      {% endif %}
+    icon_color: blue
+    card_mod:
+      style: |
+        ha-card {
+          --chip-text-color: #3498db;
+          --chip-font-weight: 800;
+        }
+  - type: template
+    entity: sensor.winter_park_snow_report
+    content: >-
+      2-Day: {{ state_attr('sensor.winter_park_snow_report', 'f_total_2d') | int
+      }}"
+    icon: >
+      {% if state_attr('sensor.winter_park_snow_report', 'f_total_2d') | int > 0
+      %}
+        mdi:weather-snowy
+      {% else %}
+        mdi:snowflake-off
+      {% endif %}
+    icon_color: blue
+    card_mod:
+      style: |
+        ha-card {
+          --chip-text-color: #3498db;
+          --chip-font-weight: 800;
+        }
